@@ -21,7 +21,7 @@ window.SITE_CONFIG = {
   carouselDelay: 10000,
   products: [
     { name: 'Viking Axe', label: 'FREE ASSET', description: 'A Norse-inspired Viking Axe!', url: 'https://jinxxy.com/XaDa/Viking_Axe', image: 'assets/Viking-Axe.png', rune: 'ᛏ' },
-    { name: 'Viking Shield', label: 'FREE ASSET', description: 'A Norse-inspired Viking Shield!', url: 'https://jinxxy.com/XaDa/Viking_Shield', image: 'assets/Viking-Shield.png', rune: 'ᛟ' }
+    { name: 'Viking Shield', label: 'FREE ASSET', description: 'A Norse-inspired Viking Shield!', url: 'https://jinxxy.com/XaDa/Viking_Shield', image: 'assets/Viking_Shield.png', rune: 'ᛟ' }
   ],
   links: [
     { title: 'YouTube', subtitle: 'Videos & content', icon: '▶', url: 'https://www.youtube.com/@xadatv' },

@@ -1,51 +1,32 @@
-# XaDa Presence — customization
+# XaDa Presence — Customizable Norse Edition
 
-## Files
-- `index.html` — structure only.
-- `style.css` — visual design and colors.
-- `script.js` — particles, carousel, live feed adapter and ambient audio.
-- `config.js` — the main file to customize.
+## Edit one file: `config.js`
 
-## Logo
-Put your logo in the site folder, for example `assets/logo.png`, then set:
+You can change the logo, name, tagline, carousel images, links, Jinxxy proxy URL, refresh interval and ambient volume without editing the HTML/CSS/JS.
 
-```js
-logo: 'assets/logo.png'
-```
+### Logo
+Put your logo in `assets/`, for example:
 
-If left empty, the Norse rune mark is shown.
+`assets/logo.png`
 
-## Colors
-Edit the CSS variables at the top of `style.css`, especially `--bg-top`, `--bg-bottom`, `--violet`, and `--line`.
+Then set:
 
-## Live Jinxxy carousel
-Jinxxy's official Creator API requires an `x-api-key` and the `products_read` scope, so the secret key should **not** be placed in browser JavaScript. The page therefore supports a small server-side proxy.
+`logo: 'assets/logo.png'`
 
-Set this in `config.js`:
+### Carousel images
+Each local product has an `image` field. Example:
 
-```js
-jinxxyProxyUrl: '/api/jinxxy/products'
-```
+`image: 'assets/products/my-product.jpg'`
 
-Your proxy should call the Jinxxy Creator API and return either:
+The carousel keeps the original two-column visual style. If your Jinxxy proxy is enabled, the **live product list controls how many carousel items exist**, but the images remain controlled by `config.js`.
 
-```json
-{ "results": [ ...products ] }
-```
+This means adding a product to Jinxxy can change the number of slides without unexpectedly replacing your chosen artwork.
 
-or simply:
+### Links
+All website buttons are in `config.js` under `links`. Add/remove/reorder objects there.
 
-```json
-[ ...products ]
-```
+### Ambient music
+The included `assets/audio/ambient-drone.wav` is a small looping ambient track. Browsers block automatic audio on many pages, so the site uses the Norse Ambient button to start it after the visitor interacts with the page.
 
-The front end accepts common image fields such as `image`, `image_url`, `thumbnail`, `cover_image.url`, or `media[0].url` when your proxy supplies them.
-
-If the live endpoint is unavailable, the configured fallback products are displayed automatically.
-
-## Ambient audio
-The ambient sound is generated locally with Web Audio, so no MP3 is required. Browsers generally block audio from starting automatically; the `Ambient OFF` button is therefore used to start it intentionally.
-
-## Jinxxy proxy included
-
-The `jinxxy-proxy/` folder contains a ready-to-deploy Cloudflare Worker. See `jinxxy-proxy/README.md` for the exact setup commands.
+### Jinxxy proxy
+Paste your secure proxy's `/products` URL into `store.jinxxyProxyUrl`. The API key stays on the proxy and never belongs in this website.

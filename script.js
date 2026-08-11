@@ -1,9 +1,6 @@
 /* ================================================================
    XADA SITE ENGINE
-   - animated Norse rune particles
-   - live Jinxxy feed via your own safe proxy
-   - carousel
-   - procedural low-volume ambient audio
+   Do not normally edit this file. Customize config.js instead.
    ================================================================ */
 const cfg = window.SITE_CONFIG;
 const productsRoot = document.querySelector('#store-window');
@@ -12,61 +9,83 @@ let products = [];
 let current = 0;
 let timer;
 
-// ----------------------------- Site config -----------------------------
-document.title = `${cfg.name} — Presence`;
-document.querySelector('#site-name').textContent = cfg.name;
-document.querySelector('#site-tagline').textContent = cfg.tagline;
-document.querySelector('#store-link').href = cfg.storeUrl;
-document.querySelector('#footer-quote').innerHTML = cfg.footerQuote;
-document.querySelector('#footer-copy').textContent = `© ${new Date().getFullYear()} ${cfg.name}`;
+const escapeHtml = (value = '') => { const d = document.createElement('div'); d.textContent = value; return d.innerHTML; };
+const escapeAttr = (value = '') => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-if (cfg.logo) {
+// ---------- Site content ----------
+document.title = `${cfg.identity.name} — Presence`;
+document.querySelector('#site-name').textContent = cfg.identity.name;
+document.querySelector('#site-tagline').textContent = cfg.identity.tagline;
+document.querySelector('#store-link').href = cfg.store.url;
+document.querySelector('#footer-quote').innerHTML = cfg.footer.quoteHtml;
+document.querySelector('#footer-copy').textContent = `© ${new Date().getFullYear()} ${cfg.identity.name}`;
+document.querySelector('#logo-fallback').textContent = cfg.identity.fallbackRune || 'ᛉ';
+
+if (cfg.identity.logo) {
   const logo = document.querySelector('#site-logo');
-  logo.src = cfg.logo;
+  logo.src = cfg.identity.logo;
   logo.hidden = false;
   document.querySelector('#logo-fallback').hidden = true;
 }
 
-const socialRoot = document.querySelector('#social-links');
-socialRoot.innerHTML = cfg.socials.map(item => `
+// ---------- Links ----------
+document.querySelector('#social-links').innerHTML = (cfg.links || []).map(item => `
   <a class="${item.primary ? 'primary' : ''}" href="${escapeAttr(item.url)}" target="_blank" rel="noopener noreferrer">
-    <span class="symbol">${escapeHtml(item.symbol)}</span>
-    <span><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.subtitle)}</small></span>
+    <span class="symbol">${escapeHtml(item.symbol || '᛫')}</span>
+    <span><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.subtitle || '')}</small></span>
     <b>↗</b>
   </a>`).join('');
 
-function escapeHtml(value='') { const d=document.createElement('div'); d.textContent=value; return d.innerHTML; }
-function escapeAttr(value='') { return String(value).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
-
-// ----------------------------- Jinxxy -----------------------------
-function normalizeProduct(p, index) {
-  const image = p.image || p.image_url || p.thumbnail || p.cover_image?.url || p.cover?.url || p.media?.[0]?.url || '';
-  const url = p.url || `${cfg.storeUrl}`;
+// ---------- Jinxxy: original visual carousel, live item count ----------
+function normalizeProduct(p, index, manual = {}) {
   return {
-    id: String(p.id ?? `product-${index}`),
-    name: p.name || 'Unnamed creation',
-    description: p.description || p.short_description || 'A creation from the XaDa store.',
-    tag: p.tag || (p.base_price === 0 ? 'FREE ASSET' : 'CREATION'),
-    url, image
+    id: String(p?.id ?? manual.id ?? `product-${index}`),
+    name: p?.name || manual.name || `Creation ${index + 1}`,
+    description: manual.description || p?.description || p?.short_description || 'A creation from the XaDa store.',
+    tag: manual.tag || p?.tag || (p?.base_price === 0 ? 'FREE ASSET' : 'CREATION'),
+    url: manual.url || p?.url || cfg.store.url,
+    image: manual.image || '' // IMPORTANT: image is always controlled locally.
   };
 }
 
+function manualForLiveProduct(live, index) {
+  const manual = cfg.store.products || [];
+  const liveId = String(live?.id ?? '');
+  const liveName = String(live?.name ?? '').trim().toLowerCase();
+  return manual.find(m => String(m.id) === liveId) || manual.find(m => String(m.name).trim().toLowerCase() === liveName) || manual[index] || {};
+}
+
 async function fetchLiveProducts() {
-  if (!cfg.jinxxyProxyUrl) return null;
-  const response = await fetch(cfg.jinxxyProxyUrl, { cache: 'no-store' });
+  if (!cfg.store.jinxxyProxyUrl) return null;
+  const response = await fetch(cfg.store.jinxxyProxyUrl, { cache: 'no-store' });
   if (!response.ok) throw new Error(`Jinxxy feed returned ${response.status}`);
   const data = await response.json();
   const list = Array.isArray(data) ? data : (data.results || data.products || []);
-  return list.map(normalizeProduct).filter(p => p.name);
+  return list.filter(Boolean);
 }
 
-function renderProducts(list) {
-  products = list.length ? list : cfg.products.map(normalizeProduct);
+function renderProducts(liveList = null) {
+  const manual = cfg.store.products || [];
+  let source;
+  if (Array.isArray(liveList) && liveList.length) {
+    // Live data determines how many products are shown. Local config determines images.
+    source = liveList.map((live, i) => normalizeProduct(live, i, manualForLiveProduct(live, i)));
+  } else {
+    source = manual.map((p, i) => normalizeProduct(p, i, p));
+  }
+  products = source;
+
+  if (!products.length) {
+    productsRoot.innerHTML = '<div class="store-empty">No creations configured yet.</div>';
+    controlsRoot.innerHTML = '';
+    return;
+  }
+
   current = Math.min(current, products.length - 1);
   productsRoot.innerHTML = products.map((p, i) => `
-    <article class="product ${i === current ? 'active' : ''}" data-index="${i}">
+    <article class="product ${i === current ? 'active' : ''}">
       <div class="product-art ${p.image ? 'has-image' : ''}">
-        ${p.image ? `<img src="${escapeAttr(p.image)}" alt="" loading="lazy" onerror="this.parentElement.classList.remove('has-image');this.remove()">` : `<span aria-hidden="true">${i % 2 ? 'ᛟ' : 'ᛏ'}</span>`}
+        ${p.image ? `<img src="${escapeAttr(p.image)}" alt="${escapeAttr(p.name)}" loading="lazy">` : `<span aria-hidden="true">${i % 2 ? 'ᛟ' : 'ᛏ'}</span>`}
       </div>
       <div class="product-copy">
         <span class="tag">${escapeHtml(p.tag)}</span>
@@ -75,75 +94,71 @@ function renderProducts(list) {
         <a href="${escapeAttr(p.url)}" target="_blank" rel="noopener noreferrer">See on Jinxxy ↗</a>
       </div>
     </article>`).join('');
-  controlsRoot.innerHTML = products.map((p, i) => `<button class="dot ${i === current ? 'active' : ''}" data-slide="${i}" aria-label="Show ${escapeAttr(p.name)}"></button>`).join('');
-  [...controlsRoot.querySelectorAll('.dot')].forEach((dot, i) => dot.addEventListener('click', () => { showSlide(i); restart(); }));
+
+  controlsRoot.innerHTML = products.map((p, i) =>
+    `<button class="dot ${i === current ? 'active' : ''}" data-slide="${i}" aria-label="Show ${escapeAttr(p.name)}"></button>`).join('');
+
+  controlsRoot.querySelectorAll('.dot').forEach((dot, i) => dot.addEventListener('click', () => { showSlide(i); restart(); }));
   restart();
 }
 
 function showSlide(index) {
   if (!products.length) return;
   current = (index + products.length) % products.length;
-  document.querySelectorAll('.product').forEach((p, i) => p.classList.toggle('active', i === current));
-  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  productsRoot.querySelectorAll('.product').forEach((p, i) => p.classList.toggle('active', i === current));
+  controlsRoot.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
 }
 function restart() {
   clearInterval(timer);
-  if (products.length > 1) timer = setInterval(() => showSlide(current + 1), 5200);
+  if (products.length > 1) timer = setInterval(() => showSlide(current + 1), 4200);
 }
-
 async function loadStore() {
-  try {
-    const live = await fetchLiveProducts();
-    renderProducts(live?.length ? live : cfg.products.map(normalizeProduct));
-  } catch (error) {
-    console.info('Live Jinxxy feed unavailable; using configured fallback products.', error);
-    renderProducts(cfg.products.map(normalizeProduct));
-  }
+  try { renderProducts(await fetchLiveProducts()); }
+  catch (error) { console.info('Live Jinxxy feed unavailable; using local carousel items.', error); renderProducts(null); }
 }
 loadStore();
-if (cfg.jinxxyProxyUrl) setInterval(loadStore, cfg.refreshMs || 120000);
+if (cfg.store.jinxxyProxyUrl) setInterval(loadStore, cfg.store.refreshMs || 120000);
 
-// ----------------------------- Rune particles -----------------------------
-const canvas = document.querySelector('#rune-particles');
-const ctx = canvas.getContext('2d');
+// ---------- Visible Norse rune magic ----------
+const particleRoot = document.querySelector('#rune-particles');
 const runes = ['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ','ᚺ','ᚾ','ᛁ','ᛃ','ᛇ','ᛈ','ᛉ','ᛋ','ᛏ','ᛒ','ᛖ','ᛗ','ᛚ','ᛜ','ᛞ','ᛟ'];
-let particles = [];
-function resizeCanvas(){ canvas.width=innerWidth*devicePixelRatio; canvas.height=innerHeight*devicePixelRatio; canvas.style.width=innerWidth+'px'; canvas.style.height=innerHeight+'px'; ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0); }
-function makeParticle(){ return {x:Math.random()*innerWidth,y:Math.random()*innerHeight, rune:runes[Math.floor(Math.random()*runes.length)], size:10+Math.random()*16, alpha:0, target:0.08+Math.random()*0.2, speed:0.002+Math.random()*0.006, phase:Math.random()*Math.PI*2, life:Math.random()*Math.PI*2}; }
-function initParticles(){ particles=Array.from({length:42},makeParticle); }
-function animateParticles(t){
-  ctx.clearRect(0,0,innerWidth,innerHeight);
-  for(const p of particles){
-    p.life += p.speed * 16;
-    const pulse=(Math.sin(p.life)+1)/2;
-    p.alpha = pulse < .16 ? 0 : p.target * Math.min(1,(pulse-.16)/.3) * (pulse>.72 ? (1-pulse)/.28 : 1);
-    ctx.font=`${p.size}px Cinzel, serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
-    ctx.fillStyle=`rgba(154,174,232,${p.alpha})`; ctx.shadowBlur=12; ctx.shadowColor='rgba(123,91,255,.22)'; ctx.fillText(p.rune,p.x,p.y); ctx.shadowBlur=0;
-  }
-  requestAnimationFrame(animateParticles);
+const particleCount = window.matchMedia('(max-width: 600px)').matches ? 14 : 26;
+for (let i = 0; i < particleCount; i++) {
+  const rune = document.createElement('span');
+  rune.className = 'rune-particle';
+  rune.textContent = runes[Math.floor(Math.random() * runes.length)];
+  rune.style.left = `${4 + Math.random() * 92}%`;
+  rune.style.top = `${4 + Math.random() * 92}%`;
+  rune.style.fontSize = `${13 + Math.random() * 19}px`;
+  rune.style.animationDelay = `${-Math.random() * 14}s`;
+  rune.style.animationDuration = `${8 + Math.random() * 8}s`;
+  rune.style.setProperty('--drift-x', `${-45 + Math.random() * 90}px`);
+  rune.style.setProperty('--drift-y', `${-40 + Math.random() * 80}px`);
+  particleRoot.appendChild(rune);
 }
-addEventListener('resize',resizeCanvas); resizeCanvas(); initParticles(); requestAnimationFrame(animateParticles);
 
-// ----------------------------- Ambient audio -----------------------------
-let audioCtx, master, nodes = [], ambientOn = false;
+// ---------- Reliable ambient audio ----------
+const ambientAudio = document.querySelector('#ambient-audio');
 const ambientButton = document.querySelector('#ambient-toggle');
-function createAmbient(){
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  master = audioCtx.createGain(); master.gain.value = 0.035; master.connect(audioCtx.destination);
-  const frequencies=[55,82.41,110];
-  frequencies.forEach((freq,i)=>{
-    const osc=audioCtx.createOscillator(), gain=audioCtx.createGain(), filter=audioCtx.createBiquadFilter();
-    osc.type=i===0?'sine':'triangle'; osc.frequency.value=freq; filter.type='lowpass'; filter.frequency.value=260;
-    gain.gain.value= i===0 ? .22 : .08; osc.connect(filter).connect(gain).connect(master); osc.start(); nodes.push(osc,gain,filter);
-  });
-}
-async function toggleAmbient(){
-  if(!audioCtx) createAmbient();
-  if(audioCtx.state==='suspended') await audioCtx.resume();
-  ambientOn=!ambientOn;
-  master.gain.cancelScheduledValues(audioCtx.currentTime);
-  master.gain.linearRampToValueAtTime(ambientOn?.035:0,audioCtx.currentTime+.8);
-  ambientButton.setAttribute('aria-pressed', String(ambientOn));
-  ambientButton.querySelector('span').textContent=ambientOn?'ON':'OFF';
-}
-ambientButton.addEventListener('click',toggleAmbient);
+const ambientState = document.querySelector('#ambient-state');
+const ambientHint = document.querySelector('#ambient-hint');
+ambientAudio.volume = Math.max(0, Math.min(1, cfg.ambient.volume ?? 0.22));
+
+ambientButton.addEventListener('click', async () => {
+  try {
+    if (ambientAudio.paused) {
+      await ambientAudio.play();
+      ambientButton.setAttribute('aria-pressed', 'true');
+      ambientState.textContent = 'ON';
+      ambientHint.textContent = 'Ambient atmosphere awakened';
+    } else {
+      ambientAudio.pause();
+      ambientButton.setAttribute('aria-pressed', 'false');
+      ambientState.textContent = 'OFF';
+      ambientHint.textContent = 'Click to awaken the ambient atmosphere';
+    }
+  } catch (error) {
+    ambientHint.textContent = 'Audio could not start — check the audio file path';
+    console.warn('Ambient audio could not start:', error);
+  }
+});

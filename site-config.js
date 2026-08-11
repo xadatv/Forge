@@ -16,7 +16,7 @@ window.SITE_CONFIG = {
   musicUrl: 'assets/assets_audio_ambient-drone.wav', // Example: 'assets/ambient.mp3'. Visitors must press the AMBIENCE button to start it.
   musicVolume: 0.12,
   storeLabel: 'JINXXY STORE',
-  storeTitle: 'My Forge',
+  storeTitle: 'Featured Creations',
   storeUrl: 'https://jinxxy.com/XaDa',
   carouselDelay: 10000,
   products: [
@@ -28,6 +28,7 @@ window.SITE_CONFIG = {
     { title: 'Twitch', subtitle: 'Live streams', icon: '◈', url: 'https://www.twitch.tv/xadatv' },
     { title: 'X / Twitter', subtitle: 'Updates & thoughts', icon: '𝕏', url: 'https://x.com/xadatv' },
     { title: 'Instagram', subtitle: 'Behind the scenes & World exploring', icon: '◎', url: 'https://www.instagram.com/xadatv' },
-    { title: 'Jinxxy', subtitle: 'Assets & creations', icon: '✦', url: 'https://jinxxy.com/XaDa', primary: true }
+    { title: 'Jinxxy', subtitle: 'Assets & creations', icon: '✦', url: 'https://jinxxy.com/XaDa', primary: true },
+    { title: 'Discord, subtitle: 'Join the Campfire', icon: '✦', url: 'tba',}
   ]
 };

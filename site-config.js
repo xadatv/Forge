@@ -14,11 +14,11 @@ window.SITE_CONFIG = {
     accent: '#b9c8ff'
   },
   musicUrl: 'assets/assets_audio_ambient-drone.wav', // Example: 'assets/ambient.mp3'. Visitors must press the AMBIENCE button to start it.
-  musicVolume: 0.12,
+  musicVolume: 0.16,
   storeLabel: 'JINXXY STORE',
   storeTitle: 'Featured Creations',
   storeUrl: 'https://jinxxy.com/XaDa',
-  carouselDelay: 10000,
+  carouselDelay: 8000,
   products: [
     { name: 'Viking Axe', label: 'FREE ASSET', description: 'A Norse-inspired Viking Axe!', url: 'https://jinxxy.com/XaDa/Viking_Axe', image: 'assets/Viking_Axe.png', rune: 'ᛏ' },
     { name: 'Viking Shield', label: 'FREE ASSET', description: 'A Norse-inspired Viking Shield!', url: 'https://jinxxy.com/XaDa/Viking_Shield', image: 'assets/Viking_Shield.png', rune: 'ᛟ' }

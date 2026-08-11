@@ -31,6 +31,7 @@ window.SITE_CONFIG = {
     { title: 'Twitch', subtitle: 'Live streams', icon: '◈', url: 'https://www.twitch.tv/xadatv' },
     { title: 'X / Twitter', subtitle: 'Updates & thoughts', icon: '𝕏', url: 'https://x.com/xadatv' },
     { title: 'Instagram', subtitle: 'Behind the scenes', icon: '◎', url: 'https://www.instagram.com/xadatv' },
+    { title: 'Discord', subtitle: 'Join the community', icon: '✦', url: 'https://discord.gg/hTHGDGEekg' },
     { title: 'Jinxxy', subtitle: 'Assets & creations', icon: '✦', url: 'https://jinxxy.com/XaDa', primary: true }
   ]
 };

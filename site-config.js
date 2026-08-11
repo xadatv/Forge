@@ -13,7 +13,7 @@ window.SITE_CONFIG = {
     bottom: '#120511',
     accent: '#b9c8ff'
   },
-  musicUrl: 'assets/assets/assets_audio_ambient-drone.wav', // Example: 'assets/ambient.mp3'. Visitors must press the AMBIENCE button to start it.
+  musicUrl: 'assets/assets_audio_ambient-drone.wav', // Example: 'assets/ambient.mp3'. Visitors must press the AMBIENCE button to start it.
   musicVolume: 0.12,
   storeLabel: 'JINXXY STORE',
   storeTitle: 'My Forge',

@@ -20,8 +20,8 @@ window.SITE_CONFIG = {
   storeUrl: 'https://jinxxy.com/XaDa',
   carouselDelay: 5000,
   products: [
-    { name: 'Viking Axe', label: 'FREE ASSET', description: 'A Norse-inspired prop for your virtual worlds.', url: 'https://jinxxy.com/XaDa', image: '', rune: 'ᛏ' },
-    { name: 'Viking Shield', label: 'FREE ASSET', description: 'A Norse-inspired shield asset for VRChat projects.', url: 'https://jinxxy.com/XaDa', image: '', rune: 'ᛟ' }
+    { name: 'Viking Axe', label: 'FREE ASSET', description: 'A Norse-inspired Viking Axe!', url: 'https://jinxxy.com/XaDa/Viking_Axe', image: '', rune: 'ᛏ' },
+    { name: 'Viking Shield', label: 'FREE ASSET', description: 'A Norse-inspired Viking Shield!', url: 'https://jinxxy.com/XaDa/Viking_Shield', image: '', rune: 'ᛟ' }
   ],
   links: [
     { title: 'YouTube', subtitle: 'Videos & content', icon: '▶', url: 'https://www.youtube.com/@xadatv' },

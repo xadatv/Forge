@@ -6,7 +6,7 @@
 window.SITE_CONFIG = {
   siteName: 'XaDa',
   tagline: 'CREATE · EXPLORE · SHARE',
-  logoUrl: 'assets/XaDa_logo_t.png', // Example: 'assets/xada-logo.png'. Leave blank to use the XaDa text.
+  logoUrl: 'assets/assets/XaDa_logo_t.png', // Example: 'assets/xada-logo.png'. Leave blank to use the XaDa text.
   theme: {
     top: '#0b1d40',
     middle: '#17102f',

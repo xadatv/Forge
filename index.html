@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07142d">
+  <meta name="description" content="XaDa — creator, streamer and digital artist.">
+  <title>XaDa — Presence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient-glow" aria-hidden="true"></div>
+  <div id="rune-particles" aria-hidden="true"></div>
+
+  <div class="norse-frame" aria-hidden="true">
+    <div class="frame-outer"></div>
+    <div class="frame-inner"></div>
+    <div class="frame-rune-line frame-rune-top">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛋ ᛏ ᛒ</div>
+    <div class="frame-rune-line frame-rune-bottom">ᛒ ᛏ ᛋ ᛉ ᛈ ᛇ ᛃ ᛁ ᚾ ᚺ ᚹ ᚷ ᚲ ᚱ ᚨ ᚦ ᚢ ᚠ</div>
+    <span class="frame-corner tl">ᛉ</span><span class="frame-corner tr">ᛟ</span>
+    <span class="frame-corner bl">ᛏ</span><span class="frame-corner br">ᚠ</span>
+  </div>
+
+  <main class="page">
+    <header class="hero">
+      <div class="logo-wrap">
+        <img id="site-logo" class="site-logo" src="" alt="XaDa logo" hidden>
+        <div id="logo-fallback" class="rune-mark" aria-hidden="true">ᛉ</div>
+      </div>
+      <h1 id="site-name">XaDa</h1>
+      <p id="site-tagline">CREATE · EXPLORE · SHARE</p>
+    </header>
+
+    <section class="store" aria-label="Featured Jinxxy products">
+      <div class="section-head">
+        <div><span class="eyebrow">JINXXY STORE</span><h2>Featured creations</h2></div>
+        <a id="store-link" href="https://jinxxy.com/XaDa" target="_blank" rel="noopener noreferrer">View store ↗</a>
+      </div>
+      <div id="store-window" class="store-window" aria-live="polite"></div>
+      <div id="store-controls" class="store-controls" aria-label="Store carousel controls"></div>
+    </section>
+
+    <section id="social-links" class="links" aria-label="Social links"></section>
+
+    <div class="ambient-control">
+      <button id="ambient-toggle" class="norse-button" type="button" aria-pressed="false">
+        <span class="button-rune">᛫</span><span class="button-label">Ambient</span><span id="ambient-state">OFF</span>
+      </button>
+      <span id="ambient-hint">Click to awaken the ambient atmosphere</span>
+    </div>
+
+    <footer>
+      <span>ᛟ</span>
+      <p id="footer-quote">BETTER TO STAND ALONE<br>THAN TO FALL WITH THE CROWD</p>
+      <small id="footer-copy">© 2026 XaDa</small>
+    </footer>
+  </main>
+
+  <audio id="ambient-audio" src="assets/audio/ambient-drone.wav" loop preload="auto"></audio>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

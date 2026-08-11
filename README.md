@@ -1,32 +1,59 @@
-# XaDa Presence — Customizable Norse Edition
+# XaDa Presence
 
-## Edit one file: `config.js`
+A config-driven Norse-themed personal landing page.
 
-You can change the logo, name, tagline, carousel images, links, Jinxxy proxy URL, refresh interval and ambient volume without editing the HTML/CSS/JS.
+## Easy customization
+
+Edit **config.js**. You can change:
+
+- `name` and `tagline`
+- `logo`
+- Jinxxy store URL
+- carousel products
+- product images
+- product descriptions/tags/links
+- social and website links
+- footer quote
+- optional live Jinxxy proxy URL
 
 ### Logo
-Put your logo in `assets/`, for example:
+Put your image in an assets folder, for example:
 
-`assets/logo.png`
+```text
+assets/logo.png
+```
 
 Then set:
 
-`logo: 'assets/logo.png'`
+```js
+logo: 'assets/logo.png'
+```
 
 ### Carousel images
-Each local product has an `image` field. Example:
+Each product has an `image` property:
 
-`image: 'assets/products/my-product.jpg'`
+```js
+{
+  name: 'My Product',
+  description: 'My description',
+  tag: 'NEW',
+  url: 'https://jinxxy.com/...',
+  image: 'assets/products/my-product.jpg'
+}
+```
 
-The carousel keeps the original two-column visual style. If your Jinxxy proxy is enabled, the **live product list controls how many carousel items exist**, but the images remain controlled by `config.js`.
+Add or remove product objects. The carousel automatically creates the matching number of slides and dots.
 
-This means adding a product to Jinxxy can change the number of slides without unexpectedly replacing your chosen artwork.
+### Live Jinxxy
+The page can optionally read products from your secure Jinxxy proxy. Set:
 
-### Links
-All website buttons are in `config.js` under `links`. Add/remove/reorder objects there.
+```js
+jinxxyProxyUrl: 'https://YOUR-WORKER.workers.dev/products'
+```
 
-### Ambient music
-The included `assets/audio/ambient-drone.wav` is a small looping ambient track. Browsers block automatic audio on many pages, so the site uses the Norse Ambient button to start it after the visitor interacts with the page.
+The page refreshes the live list every `refreshMs` milliseconds. If the proxy is unavailable, the configured products are used instead so the store never disappears.
 
-### Jinxxy proxy
-Paste your secure proxy's `/products` URL into `store.jinxxyProxyUrl`. The API key stays on the proxy and never belongs in this website.
+Do not put a Jinxxy API key in this website.
+
+## Norse visuals
+The background contains animated rune particles that manifest, glow, drift and disappear. The page frame uses angular rune corners and Elder Futhark markings.

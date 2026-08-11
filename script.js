@@ -47,9 +47,15 @@ function applySettings() {
   const logo = $('#brand-logo'); if (settings.logoUrl && isSafeUrl(settings.logoUrl)) { logo.src = isSafeUrl(settings.logoUrl); logo.alt = settings.siteName || 'Logo'; logo.hidden = false; }
 }
 function setupMusic() {
-  const music = $('#ambient-music'); const button = $('#music-toggle'); if (!settings.musicUrl || !isSafeUrl(settings.musicUrl)) return;
-  music.src = isSafeUrl(settings.musicUrl); music.volume = Math.min(Math.max(Number(settings.musicVolume ?? .12), 0), 1); button.hidden = false;
-  button.addEventListener('click', async () => { if (music.paused) { try { await music.play(); button.setAttribute('aria-pressed', 'true'); button.lastChild.textContent = ' PAUSE'; } catch {} } else { music.pause(); button.setAttribute('aria-pressed', 'false'); button.lastChild.textContent = ' AMBIENCE'; } });
+  const music = $('#ambient-music'); const toggle = $('#music-toggle'); const overlay = $('#enter-overlay'); const enterButton = $('#enter-button');
+  if (!settings.musicUrl || !isSafeUrl(settings.musicUrl)) return;
+  music.src = isSafeUrl(settings.musicUrl); music.volume = Math.min(Math.max(Number(settings.musicVolume ?? .12), 0), 1); toggle.hidden = false;
+  const startMusic = async () => { try { await music.play(); toggle.setAttribute('aria-pressed', 'true'); toggle.lastChild.textContent = ' PAUSE'; } catch {} };
+  toggle.addEventListener('click', async () => { if (music.paused) await startMusic(); else { music.pause(); toggle.setAttribute('aria-pressed', 'false'); toggle.lastChild.textContent = ' AMBIENCE'; } });
+  if (settings.enterOverlay !== false) {
+    setText('#enter-kicker', settings.siteName); setText('#enter-title', settings.enterTitle); setText('#enter-message', settings.enterMessage); overlay.hidden = false;
+    enterButton.addEventListener('click', async () => { await startMusic(); overlay.classList.add('is-leaving'); setTimeout(() => { overlay.hidden = true; }, 700); }, { once: true });
+  }
 }
 function animateRunes() {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;

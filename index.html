@@ -12,14 +12,25 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <section id="enter-overlay" class="enter-overlay" aria-label="Enter the site" hidden>
+    <div class="enter-overlay__pattern" aria-hidden="true">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ</div>
+    <div class="enter-overlay__card">
+      <span class="enter-overlay__rune" aria-hidden="true">ᛉ</span>
+      <p id="enter-kicker">XA DA</p>
+      <h2 id="enter-title">Enter the realm</h2>
+      <p id="enter-message">Awaken the ambience and step inside.</p>
+      <button id="enter-button" type="button">ENTER THE REALM <span>ᛞ</span></button>
+    </div>
+  </section>
   <canvas id="rune-canvas" aria-hidden="true"></canvas>
   <div class="norse-frame" aria-hidden="true"><i>ᛟ</i><i>ᛉ</i><i>ᛏ</i><i>ᛋ</i></div>
 
   <main class="page">
     <header class="hero">
+      <div class="rune-mark" aria-hidden="true">ᛉ</div>
       <img id="brand-logo" src="" alt="" hidden>
       <h1 id="site-name">XaDa</h1>
-      <p id="tagline">FORGE · EXPLORE · SHARE</p>
+      <p id="tagline">CREATE · EXPLORE · SHARE</p>
     </header>
 
     <section class="store" aria-label="Featured Jinxxy products">
@@ -44,10 +55,10 @@
       <a class="primary" href="https://jinxxy.com/XaDa" target="_blank" rel="noopener noreferrer"><span class="symbol">✦</span><span><strong>Jinxxy</strong><small>Assets & creations</small></span><b>↗</b></a>
     </section>
 
-    <footer><span>ᛟ</span><p>THE WORLD IS COLD ENOUGH. <br> KEEP CLOSE THOSE WHO GUARD THE HEARTH, <br> FOR EVEN THE STRONGEST WARRIOR NEEDS A PLACE WHERE PEACE ABIDES.</p><small>© 2026 XaDa</small></footer>
+    <footer><span>ᛟ</span><p>BETTER TO STAND ALONE<br>THAN TO FALL WITH THE CROWD</p><small>© 2026 XaDa</small></footer>
   </main>
 
-  <button id="music-toggle" class="music-toggle" type="button" aria-pressed="true" hidden><span>ᛞ</span> AMBIENCE</button>
+  <button id="music-toggle" class="music-toggle" type="button" aria-pressed="false" hidden><span>ᛞ</span> AMBIENCE</button>
   <audio id="ambient-music" loop preload="metadata"></audio>
   <script src="site-config.js"></script>
   <script src="script.js"></script>

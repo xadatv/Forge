@@ -11,7 +11,7 @@ function showSlide(index) {
 
 function restart() {
   clearInterval(timer);
-  timer = setInterval(() => showSlide((current + 1) % products.length), 4200);
+  timer = setInterval(() => showSlide((current + 1) % products.length), 6200);
 }
 
 dots.forEach((dot, i) => {

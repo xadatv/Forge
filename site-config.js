@@ -17,11 +17,11 @@ window.SITE_CONFIG = {
   musicVolume: 0.16,
   enterOverlay: true, // Shows a one-click welcome screen that starts your ambient music reliably.
   enterTitle: 'Enter the realm',
-  enterMessage: 'Awaken the ambience and step inside.',
+  enterMessage: 'explore possibilitys',
   storeLabel: 'JINXXY STORE',
   storeTitle: 'Featured creations',
   storeUrl: 'https://jinxxy.com/XaDa',
-  carouselDelay: 5000,
+  carouselDelay: 8000,
   products: [
     { name: 'Viking Axe', label: 'FREE ASSET', description: 'A Norse-inspired Viking Axe!', url: 'https://jinxxy.com/XaDa/Viking_Axe', image: 'assets/Viking_Axe.png', rune: 'ᛏ' },
     { name: 'Viking Shield', label: 'FREE ASSET', description: 'A Norse-inspired Viking Shield!', url: 'https://jinxxy.com/XaDa/Viking_Shield', image: 'assets/Viking_Shield.png', rune: 'ᛟ' }

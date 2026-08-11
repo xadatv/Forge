@@ -1,0 +1,44 @@
+*{box-sizing:border-box}
+:root{--bg:#071018;--panel:#0b1721;--panel2:#0e1d29;--line:#2b4352;--text:#edf3f6;--muted:#8fa0ab;--ice:#75c9e9}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,system-ui,sans-serif;background:radial-gradient(circle at 50% -10%,#173246 0,transparent 38%),var(--bg)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.06;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:48px 48px}
+.page{width:min(620px,100%);margin:auto;padding:64px 20px 40px}
+.hero{text-align:center;margin-bottom:44px}
+.rune-mark{width:66px;height:66px;margin:auto;display:grid;place-items:center;border:1px solid #456171;border-radius:50%;font:700 29px Cinzel,serif;color:#b8d3df;background:#0a151f}
+h1{margin:18px 0 9px;font:800 clamp(52px,13vw,76px)/1 Cinzel,serif;letter-spacing:.12em;text-transform:uppercase}
+.hero p{margin:0;color:#8fa6b2;font-size:10px;font-weight:600;letter-spacing:.38em}
+.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:14px}
+.eyebrow{font-size:9px;letter-spacing:.24em;color:#7090a0;font-weight:700}
+h2{margin:5px 0 0;font:600 20px Cinzel,serif}
+.section-head>a{font-size:11px;color:#a9c5d2;text-decoration:none}
+.store-window{position:relative;min-height:178px;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:linear-gradient(135deg,var(--panel2),var(--panel));box-shadow:0 16px 45px rgba(0,0,0,.22)}
+.product{position:absolute;inset:0;display:grid;grid-template-columns:40% 60%;opacity:0;transform:translateX(18px);transition:opacity .45s ease,transform .45s ease;pointer-events:none}
+.product.active{opacity:1;transform:none;pointer-events:auto}
+.product-art{position:relative;display:grid;place-items:center;overflow:hidden;border-right:1px solid var(--line);background:radial-gradient(circle at 50% 40%,#24485b,#0a151e 68%)}
+.product-art:before{content:"";position:absolute;width:115px;height:115px;border:1px solid #53788a;transform:rotate(45deg);opacity:.35}
+.product-art span{font:700 76px Cinzel,serif;color:#c9e0e8;text-shadow:0 0 25px rgba(117,201,233,.25)}
+.shield-art{background:radial-gradient(circle at 50% 40%,#31495a,#0a151e 68%)}
+.shield-art:before{border-radius:50%;transform:none;width:112px;height:112px}
+.product-copy{padding:25px 24px;display:flex;flex-direction:column;justify-content:center}
+.tag{font-size:8px;font-weight:700;letter-spacing:.2em;color:#7db8ca}
+h3{margin:6px 0 5px;font:700 22px Cinzel,serif}
+.product-copy p{margin:0 0 13px;color:var(--muted);font-size:11px;line-height:1.5}
+.product-copy a{width:max-content;color:#c5dbe4;text-decoration:none;font-size:11px;font-weight:600;border-bottom:1px solid #385565;padding-bottom:2px}
+.store-controls{display:flex;justify-content:center;gap:7px;margin:12px 0 28px}
+.dot{width:6px;height:6px;padding:0;border:0;border-radius:50%;background:#38505e;cursor:pointer}
+.dot.active{background:#9ccbdc;box-shadow:0 0 10px rgba(117,201,233,.4)}
+.links{display:grid;gap:10px}
+.links>a{min-height:64px;display:grid;grid-template-columns:40px 1fr 20px;align-items:center;gap:13px;padding:10px 17px;border:1px solid var(--line);border-radius:10px;background:rgba(9,21,31,.82);color:var(--text);text-decoration:none;transition:.2s ease}
+.links>a:hover{transform:translateY(-2px);border-color:#557182;background:#0d1c28}
+.links>a.primary{border-color:#496d7c;background:linear-gradient(100deg,#0c202b,#0b1721)}
+.symbol{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;border:1px solid #385364;color:#bfd6df;font-size:17px}
+.links strong{display:block;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.links small{display:block;margin-top:3px;color:var(--muted);font-size:10px}
+.links b{font-size:15px;color:#829aa7;font-weight:400}
+footer{text-align:center;margin-top:40px;color:#6f818c}
+footer>span{display:block;margin-bottom:15px;font:18px Cinzel,serif;color:#68818e}
+footer p{margin:0 0 15px;font:600 9px/1.9 Cinzel,serif;letter-spacing:.25em}
+footer small{font-size:9px;letter-spacing:.12em}
+@media(max-width:470px){.page{padding:45px 15px 30px}.product{grid-template-columns:36% 64%}.product-copy{padding:20px 17px}.product-copy p{font-size:10px}.links>a{padding:9px 13px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}

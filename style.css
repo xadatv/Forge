@@ -10,3 +10,35 @@ body:before{content:"";position:fixed;inset:0;z-index:-3;pointer-events:none;bac
 .links{display:grid;gap:10px}.links>a{position:relative;isolation:isolate;min-height:65px;display:grid;grid-template-columns:40px 1fr 20px;align-items:center;gap:13px;padding:10px 18px;border:1px solid var(--line-soft);background:var(--surface);color:var(--text);text-decoration:none;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,0 calc(100% - 9px));transition:transform .2s ease,border-color .2s ease,background .2s ease}.links>a:before,.links>a:after{content:"ᛟ";position:absolute;z-index:-1;color:rgba(177,195,255,.22);font:17px Cinzel}.links>a:before{left:6px;top:4px}.links>a:after{right:6px;bottom:4px}.links>a:hover{transform:translateY(-2px);border-color:#aab9e8;background:var(--surface-strong)}.links>a.primary{border-color:#7f94d1;background:linear-gradient(100deg,rgba(34,56,114,.84),rgba(42,14,66,.88))}.symbol{width:36px;height:36px;display:grid;place-items:center;border:1px solid #697caf;color:#d8e2ff;font-size:17px;clip-path:polygon(50% 0,100% 24%,100% 76%,50% 100%,0 76%,0 24%)}.links strong{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase}.links small{display:block;margin-top:3px;color:var(--muted);font-size:10px}.links b{font-size:15px;font-weight:400;color:#b8c5ed}
 footer{text-align:center;margin-top:40px;color:#9da1bb}footer>span{display:block;margin-bottom:15px;font:18px Cinzel,serif;color:#bbc8f2}footer p{margin:0 0 15px;font:600 9px/1.9 Cinzel,serif;letter-spacing:.23em}footer small{font-size:9px;letter-spacing:.12em}.music-toggle{position:fixed;right:22px;bottom:22px;z-index:7;padding:9px 12px;border:1px solid #7d90c7;background:rgba(11,13,39,.9);color:#e4e9ff;font:700 9px Cinzel,serif;letter-spacing:.14em;cursor:pointer;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px))}.music-toggle[aria-pressed="true"],.music-toggle:hover{background:#334681;border-color:#d1ddff}.music-toggle span{color:var(--gold);font-size:14px;margin-right:5px}
 @media(max-width:470px){.norse-frame{inset:4px}.norse-frame:before,.norse-frame:after{background-size:20px 14px;height:14px}.norse-frame i{width:22px;height:22px;font-size:12px}.page{padding:52px 21px 35px}.product{grid-template-columns:36% 64%}.product-copy{padding:19px 17px}.product-copy p{font-size:10px}.links>a{padding:9px 14px}.music-toggle{right:13px;bottom:13px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}#rune-canvas{display:none}}
+/* Soft dark depth */
+#brand-logo {
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .36));
+}
+
+#site-name {
+  text-shadow: 0 7px 14px rgba(0, 0, 0, .4);
+}
+
+.rune-mark {
+  box-shadow: 0 7px 15px rgba(0, 0, 0, .3);
+}
+
+.links > a {
+  box-shadow: 0 7px 15px rgba(0, 0, 0, .27);
+}
+
+.links > a:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .34);
+}
+
+.music-toggle {
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .32);
+}
+
+.enter-overlay button {
+  box-shadow: 0 7px 15px rgba(0, 0, 0, .34);
+}
+
+.enter-overlay button:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .42);
+}

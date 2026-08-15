@@ -12,33 +12,33 @@ footer{text-align:center;margin-top:40px;color:#9da1bb}footer>span{display:block
 @media(max-width:470px){.norse-frame{inset:4px}.norse-frame:before,.norse-frame:after{background-size:20px 14px;height:14px}.norse-frame i{width:22px;height:22px;font-size:12px}.page{padding:52px 21px 35px}.product{grid-template-columns:36% 64%}.product-copy{padding:19px 17px}.product-copy p{font-size:10px}.links>a{padding:9px 14px}.music-toggle{right:13px;bottom:13px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}#rune-canvas{display:none}}
 /* Soft dark depth */
 #brand-logo {
-  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .36));
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .5));
 }
 
 #site-name {
-  text-shadow: 0 7px 14px rgba(0, 0, 0, .4);
+  text-shadow: 0 7px 14px rgba(0, 0, 0, .5);
 }
 
 .rune-mark {
-  box-shadow: 0 7px 15px rgba(0, 0, 0, .3);
+  box-shadow: 0 7px 15px rgba(0, 0, 0, .5);
 }
 
 .links > a {
-  box-shadow: 0 7px 15px rgba(0, 0, 0, .27);
+  box-shadow: 0 7px 15px rgba(0, 0, 0, .5);
 }
 
 .links > a:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, .34);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .5);
 }
 
 .music-toggle {
-  box-shadow: 0 6px 14px rgba(0, 0, 0, .32);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .5);
 }
 
 .enter-overlay button {
-  box-shadow: 0 7px 15px rgba(0, 0, 0, .34);
+  box-shadow: 0 7px 15px rgba(0, 0, 0, .5);
 }
 
 .enter-overlay button:hover {
-  box-shadow: 0 10px 20px rgba(0, 0, 0, .42);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .5);
 }
